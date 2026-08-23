@@ -40,6 +40,22 @@ Zalecane: [Laragon](https://laragon.org/) (Windows) — daje PHP 8.x + MySQL
 bez ręcznej konfiguracji. Do czasu dodania backendu (obecny etap) stronę
 można otworzyć bezpośrednio jako plik `index.html` w przeglądarce.
 
+## Import bazy danych — pułapka z kodowaniem
+
+Przy imporcie plików z `sql/` przez klienta `mysql` (CLI) **zawsze** dodawaj
+`--default-character-set=utf8mb4`, inaczej polskie znaki (ł, ą, ń...) mogą
+zostać zapisane błędnie mimo poprawnego UTF-8 w samym pliku `.sql`:
+
+```
+mysql -u root --default-character-set=utf8mb4 < sql/001_init_schema.sql
+mysql -u root --default-character-set=utf8mb4 < sql/002_seed_menu.sql
+mysql -u root --default-character-set=utf8mb4 < sql/003_seed_admin_user.sql
+```
+
+Import przez phpMyAdmin (tak jak na OVH — patrz plan wdrożenia) tego problemu
+zwykle nie ma, ale warto zweryfikować polskie znaki po imporcie (np. "Kotlet
+wołowy" w tabeli `addons`) zanim przejdzie się dalej.
+
 ## Bezpieczeństwo i sekrety
 
 `config/config.local.php` (dane dostępowe do bazy, klucze Przelewy24 —
