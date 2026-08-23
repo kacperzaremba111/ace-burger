@@ -1,0 +1,13 @@
+# Sekrety — nigdy nie commitować (dane DB, klucze Przelewy24)
+config/config.local.php
+
+# Logi
+*.log
+
+# Środowisko lokalne (Laragon/XAMPP)
+.env
+.env.local
+
+# System
+Thumbs.db
+.DS_Store
