@@ -63,6 +63,7 @@ $csrfToken = Csrf::token();
   <title>Dodatki — Panel ACE BURGER</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
+  <script src="panel-confirm.js" defer></script>
 </head>
 <body>
   <div class="panel-shell">
@@ -95,7 +96,7 @@ $csrfToken = Csrf::token();
         <input type="hidden" name="id" value="<?= $id ?>">
       </form>
       <form id="ad-del-<?= $id ?>" method="post" action="dodatki.php"
-            onsubmit="return confirm('Usunąć dodatek &quot;<?= h($a['name']) ?>&quot;?');">
+            class="confirm-delete" data-confirm-message="Usunąć dodatek „<?= h($a['name']) ?>”?">
         <input type="hidden" name="csrf_token" value="<?= h($csrfToken) ?>">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="id" value="<?= $id ?>">

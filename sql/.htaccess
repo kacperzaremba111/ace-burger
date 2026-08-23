@@ -1,0 +1,10 @@
+# Belt-and-suspenders: ten katalog powinien byc POZA document root (www/) na
+# produkcji, wiec i tak jest nieosiagalny przez HTTP. Ten plik to dodatkowa
+# ochrona na wypadek, gdyby plan hostingu wymusil umieszczenie wszystkiego
+# w jednym plaskim katalogu (patrz README.md, sekcja o strukturze katalogow).
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Deny from all
+</IfModule>

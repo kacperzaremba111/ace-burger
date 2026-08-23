@@ -84,6 +84,7 @@ $tagLabel = ['none' => '—', 'hot' => 'OSTRY', 'bbq' => 'BBQ'];
   <title>Menu — Panel ACE BURGER</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
+  <script src="panel-confirm.js" defer></script>
 </head>
 <body>
   <div class="panel-shell">
@@ -116,7 +117,7 @@ $tagLabel = ['none' => '—', 'hot' => 'OSTRY', 'bbq' => 'BBQ'];
         <input type="hidden" name="id" value="<?= $id ?>">
       </form>
       <form id="mi-del-<?= $id ?>" method="post" action="menu.php"
-            onsubmit="return confirm('Usunąć pozycję &quot;<?= h($item['name']) ?>&quot;?');">
+            class="confirm-delete" data-confirm-message="Usunąć pozycję „<?= h($item['name']) ?>”?">
         <input type="hidden" name="csrf_token" value="<?= h($csrfToken) ?>">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="id" value="<?= $id ?>">

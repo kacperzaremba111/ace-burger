@@ -1,0 +1,29 @@
+# ACE BURGER — konfiguracja Apache dla document root.
+# UWAGA: reguła przekierowania HTTPS poniżej nie była testowana na żywym
+# Apache (środowisko deweloperskie to wbudowany serwer PHP, który .htaccess
+# ignoruje) — to standardowa, powszechnie używana reguła mod_rewrite, ale
+# zweryfikuj po wdrożeniu na OVH (z aktywnym SSL — patrz plan wdrożenia),
+# że nie powstaje pętla przekierowań, zanim uznasz to za gotowe.
+
+RewriteEngine On
+
+# Wymuszenie HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Belt-and-suspenders: gdyby pliki .sql/.md/.log/.env trafiły kiedyś do
+# document root przez pomyłkę przy wdrożeniu, i tak nie będą serwowane.
+<FilesMatch "\.(sql|md|log|env)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>

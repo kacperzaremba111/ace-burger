@@ -63,6 +63,7 @@ $csrfToken  = Csrf::token();
   <title>Kategorie — Panel ACE BURGER</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
+  <script src="panel-confirm.js" defer></script>
 </head>
 <body>
   <div class="panel-shell">
@@ -100,7 +101,7 @@ $csrfToken  = Csrf::token();
         <input type="hidden" name="id" value="<?= $id ?>">
       </form>
       <form id="cat-del-<?= $id ?>" method="post" action="kategorie.php"
-            onsubmit="return confirm('Usunąć kategorię &quot;<?= h($c['name']) ?>&quot;?');">
+            class="confirm-delete" data-confirm-message="Usunąć kategorię „<?= h($c['name']) ?>”?">
         <input type="hidden" name="csrf_token" value="<?= h($csrfToken) ?>">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="id" value="<?= $id ?>">
