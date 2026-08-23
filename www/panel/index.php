@@ -26,8 +26,8 @@ $user = Auth::user();
       </span>
     </header>
 
-    <!-- Link do zamowienia.php doljczy w Fazie 6 (panel kuchni). -->
     <nav class="panel-nav">
+      <a href="zamowienia.php">Zamówienia</a>
       <?php if ($user['role'] === 'admin'): ?>
         <a href="kategorie.php">Kategorie</a>
         <a href="menu.php">Menu</a>

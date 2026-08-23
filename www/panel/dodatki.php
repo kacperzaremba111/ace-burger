@@ -76,9 +76,10 @@ $csrfToken = Csrf::token();
 
     <nav class="panel-nav">
       <a href="index.php">Start</a>
+      <a href="zamowienia.php">Zamówienia</a>
       <a href="kategorie.php">Kategorie</a>
       <a href="menu.php">Menu</a>
-      <a href="dodatki.php">Dodatki</a>
+      <a href="dodatki.php" class="is-active">Dodatki</a>
     </nav>
 
     <?php if ($flash): ?>

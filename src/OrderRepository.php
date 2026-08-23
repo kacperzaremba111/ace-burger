@@ -261,6 +261,154 @@ final class OrderRepository
         $stmt->execute([$status, $orderId]);
     }
 
+    // ---------- Panel kuchni/obsługi: renderowanie ----------
+
+    public const STATUS_LABELS = [
+        'nowe'            => 'Nowe',
+        'oplacone'        => 'Opłacone',
+        'w_przygotowaniu' => 'W przygotowaniu',
+        'gotowe'          => 'Gotowe',
+        'w_dostawie'      => 'W dostawie',
+        'wydane'          => 'Wydane',
+        'anulowane'       => 'Anulowane',
+    ];
+
+    private const FULFILLMENT_LABELS = [
+        'na_miejscu' => 'Na miejscu',
+        'na_wynos'   => 'Na wynos',
+        'dostawa'    => 'Dostawa',
+    ];
+
+    /**
+     * Dozwolone kolejne statusy z etykietami przycisku, zależne od bieżącego
+     * statusu i sposobu odbioru (np. "w_przygotowaniu" prowadzi do "gotowe"
+     * przy odbiorze na miejscu/na wynos, ale do "w_dostawie" przy dostawie).
+     * @return array<string,string> [nowy_status => etykieta przycisku]
+     */
+    public static function nextStatusOptions(string $currentStatus, string $fulfillment): array
+    {
+        return match ($currentStatus) {
+            'nowe', 'oplacone' => [
+                'w_przygotowaniu' => 'Rozpocznij przygotowanie',
+                'anulowane'       => 'Anuluj',
+            ],
+            'w_przygotowaniu' => $fulfillment === 'dostawa'
+                ? ['w_dostawie' => 'Wyślij do dostawy', 'anulowane' => 'Anuluj']
+                : ['gotowe' => 'Oznacz jako gotowe', 'anulowane' => 'Anuluj'],
+            'gotowe'     => ['wydane' => 'Oznacz jako wydane'],
+            'w_dostawie' => ['wydane' => 'Oznacz jako dostarczone'],
+            default      => [], // wydane, anulowane — stan końcowy
+        };
+    }
+
+    /** Renderuje jedną kartę zamówienia dla panelu kuchni/obsługi. */
+    public static function renderOrderCard(array $order, array $items, string $csrfToken): string
+    {
+        $orderId       = (int) $order['id'];
+        $orderNumber   = h($order['order_number']);
+        $statusLabel   = h(self::STATUS_LABELS[$order['status']] ?? $order['status']);
+        $statusClass   = h($order['status']);
+        $fulfillment   = h(self::FULFILLMENT_LABELS[$order['fulfillment']] ?? $order['fulfillment']);
+        $paymentLabel  = $order['payment_method'] === 'przelewy24' ? 'Przelewy24' : 'Przy odbiorze';
+        $createdAt     = h(date('H:i, d.m.Y', strtotime((string) $order['created_at'])));
+        $customerName  = h($order['customer_name']);
+        $customerPhone = h($order['customer_phone']);
+        $totalLabel    = h(money_pln((int) $order['total_cents']));
+
+        $deliveryBlock = '';
+        if ($order['fulfillment'] === 'dostawa') {
+            $addressParts = array_filter([
+                $order['delivery_street'] ?? null,
+                $order['delivery_city'] ?? null,
+                $order['delivery_postal_code'] ?? null,
+            ]);
+            $address = h(implode(', ', $addressParts));
+            $deliveryNotes = !empty($order['delivery_notes']) ? '<br>Uwagi: ' . h($order['delivery_notes']) : '';
+            $deliveryBlock = "<p class=\"order-card__delivery\">📍 {$address}{$deliveryNotes}</p>";
+        }
+
+        $notesBlock = !empty($order['notes'])
+            ? '<p class="order-card__notes">Uwagi do zamówienia: ' . h($order['notes']) . '</p>'
+            : '';
+
+        $itemsHtml = '';
+        foreach ($items as $item) {
+            $itemName = h($item['name_snapshot']);
+            $itemQty  = (int) $item['quantity'];
+            $itemLine = h(money_pln((int) $item['line_total_cents']));
+            $itemNotes = !empty($item['item_notes']) ? ' <em>(' . h($item['item_notes']) . ')</em>' : '';
+
+            $addonsHtml = '';
+            if (!empty($item['addons'])) {
+                $addonLabels = array_map(
+                    static fn (array $a): string => h($a['name_snapshot']) . ((int) $a['quantity'] > 1 ? ' x' . (int) $a['quantity'] : ''),
+                    $item['addons']
+                );
+                $addonsHtml = '<p class="order-card__item-addons">+ ' . implode(', ', $addonLabels) . '</p>';
+            }
+
+            $itemsHtml .= <<<HTML
+                <div class="order-card__item">
+                  <div class="order-card__item-row">
+                    <span>{$itemQty}x {$itemName}{$itemNotes}</span>
+                    <span>{$itemLine}</span>
+                  </div>
+                  {$addonsHtml}
+                </div>
+                HTML;
+        }
+
+        $actionsHtml = '';
+        foreach (self::nextStatusOptions($order['status'], $order['fulfillment']) as $newStatus => $label) {
+            $danger = $newStatus === 'anulowane' ? ' btn-sm--danger' : '';
+            $confirmAttr = $newStatus === 'anulowane'
+                ? ' onsubmit="return confirm(\'Na pewno anulować to zamówienie?\');"'
+                : '';
+            $actionsHtml .= <<<HTML
+                <form method="post" action="api/zamowienie-status.php"{$confirmAttr}>
+                  <input type="hidden" name="csrf_token" value="{$csrfToken}">
+                  <input type="hidden" name="order_id" value="{$orderId}">
+                  <input type="hidden" name="status" value="{$newStatus}">
+                  <button type="submit" class="btn-sm{$danger}">{$label}</button>
+                </form>
+                HTML;
+        }
+
+        return <<<HTML
+            <article class="order-card order-card--{$statusClass}">
+              <div class="order-card__head">
+                <span class="order-card__number">{$orderNumber}</span>
+                <span class="order-card__status-badge order-card__status-badge--{$statusClass}">{$statusLabel}</span>
+              </div>
+              <p class="order-card__meta">{$createdAt} · {$fulfillment} · {$paymentLabel}</p>
+              <p class="order-card__customer">{$customerName} · <a href="tel:{$customerPhone}">{$customerPhone}</a></p>
+              {$deliveryBlock}
+              <div class="order-card__items">{$itemsHtml}</div>
+              {$notesBlock}
+              <p class="order-card__total">Razem: {$totalLabel}</p>
+              <div class="order-card__actions">{$actionsHtml}</div>
+            </article>
+            HTML;
+    }
+
+    /** Renderuje wszystkie karty dla podanego zestawu statusów — jeden fragment HTML. */
+    public static function renderOrdersFragment(array $statuses, string $csrfToken): string
+    {
+        $orders = self::listForKitchen($statuses);
+
+        if (empty($orders)) {
+            return '<p class="cart-empty">Brak zamówień w tym widoku.</p>';
+        }
+
+        $html = '';
+        foreach ($orders as $order) {
+            $items = self::itemsForOrder((int) $order['id']);
+            $html .= self::renderOrderCard($order, $items, $csrfToken);
+        }
+
+        return $html;
+    }
+
     // ---------- Płatności (Przelewy24) ----------
 
     public static function createPaymentRecord(int $orderId, string $sessionId, int $amountCents): void

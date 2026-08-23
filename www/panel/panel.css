@@ -61,6 +61,7 @@ body {
   font-size: 0.9rem;
 }
 .panel-nav a:hover { border-color: var(--color-mustard); color: var(--color-mustard); }
+.panel-nav a.is-active { background: var(--color-mustard); color: var(--color-ink); border-color: var(--color-mustard); font-weight: 700; }
 
 .login-form { max-width: 360px; margin: 4rem auto; }
 .login-form h1 { font-size: 1.4rem; margin-bottom: 1.25rem; color: var(--color-cream); }
@@ -105,6 +106,47 @@ body {
 }
 .alert--error { background: rgba(227, 67, 40, 0.15); color: #ff9683; border: 1px solid rgba(227, 67, 40, 0.4); }
 .alert--success { background: rgba(143, 191, 58, 0.15); color: #a9d66b; border: 1px solid rgba(143, 191, 58, 0.4); }
+
+/* ---------- Zamówienia (panel kuchni/obsługi) ---------- */
+.orders-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+
+.order-card {
+  background: var(--color-char);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 1.1rem;
+  border-left: 4px solid var(--color-line);
+}
+.order-card--nowe, .order-card--oplacone { border-left-color: var(--color-mustard); }
+.order-card--w_przygotowaniu { border-left-color: var(--color-fire); }
+.order-card--gotowe, .order-card--w_dostawie { border-left-color: #8fbf3a; }
+.order-card--wydane { border-left-color: var(--color-line); opacity: 0.6; }
+.order-card--anulowane { border-left-color: var(--color-line); opacity: 0.45; }
+
+.order-card__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.order-card__number { font-weight: 700; font-family: monospace; font-size: 0.95rem; }
+.order-card__status-badge {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--color-char-2); color: var(--color-cream-dim);
+}
+.order-card__status-badge--nowe, .order-card__status-badge--oplacone { background: rgba(240,180,41,0.18); color: var(--color-mustard); }
+.order-card__status-badge--w_przygotowaniu { background: rgba(227,67,40,0.18); color: #ff9683; }
+.order-card__status-badge--gotowe, .order-card__status-badge--w_dostawie { background: rgba(143,191,58,0.18); color: #a9d66b; }
+
+.order-card__meta, .order-card__customer { font-size: 0.85rem; color: var(--color-cream-dim); margin: 0.15rem 0; }
+.order-card__customer a { color: var(--color-cream); }
+.order-card__delivery { font-size: 0.85rem; margin: 0.4rem 0; padding: 0.4rem 0.6rem; background: var(--color-char-2); border-radius: 6px; }
+.order-card__notes { font-size: 0.82rem; color: var(--color-cream-dim); margin-top: 0.5rem; font-style: italic; }
+
+.order-card__items { margin: 0.7rem 0; border-top: 1px dashed var(--color-line); padding-top: 0.6rem; }
+.order-card__item { margin-bottom: 0.5rem; font-size: 0.88rem; }
+.order-card__item-row { display: flex; justify-content: space-between; gap: 0.5rem; }
+.order-card__item-addons { font-size: 0.78rem; color: var(--color-cream-dim); margin: 0.1rem 0 0; }
+
+.order-card__total { font-family: var(--font-mono, monospace); font-weight: 700; color: var(--color-mustard); text-align: right; margin: 0.5rem 0; }
+
+.order-card__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+.order-card__actions form { display: inline; }
 
 .panel-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .panel-table th, .panel-table td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--color-line); vertical-align: middle; }
