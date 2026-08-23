@@ -1,0 +1,58 @@
+/* =========================================================
+   ACE BURGER — checkout.css (tylko www/koszyk.php)
+   Style formularza zamówienia — korzysta z tokenów z main.css.
+   ========================================================= */
+
+.checkout { max-width: 720px; margin-inline: auto; padding: 3rem var(--gutter) 5rem; }
+.checkout__inner > .section-title { margin-bottom: 1.8rem; }
+.checkout__subtitle {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.2rem; margin-bottom: 1.1rem; color: var(--color-mustard);
+}
+
+.panel-block {
+  background: var(--color-char);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkout__status { font-size: 0.9rem; min-height: 1.2em; margin-bottom: 0.5rem; }
+.checkout__status--error { color: #ff9683; }
+
+.field { margin-bottom: 1.1rem; }
+.field label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; color: var(--color-cream-dim); }
+.field input[type="text"],
+.field input[type="tel"],
+.field input[type="email"] {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: var(--color-char-2);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  color: var(--color-cream);
+  font-size: 1rem;
+  font-family: var(--font-body);
+}
+.field input:focus { outline: 2px solid var(--color-mustard); outline-offset: 1px; }
+
+.field--honeypot { position: absolute; left: -9999px; top: -9999px; }
+
+.field-group {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+}
+.field-group legend { padding: 0 0.4rem; font-size: 0.85rem; color: var(--color-cream-dim); }
+.radio-option { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0; font-size: 0.95rem; }
+
+.delivery-fields {
+  border-left: 2px solid var(--color-mustard);
+  padding-left: 1rem;
+  margin: -0.4rem 0 1.1rem;
+}
+
+.checkout__submit { width: 100%; margin-top: 0.5rem; }
+.checkout__submit:disabled { opacity: 0.5; cursor: not-allowed; }

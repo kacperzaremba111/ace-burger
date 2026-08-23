@@ -108,9 +108,12 @@ final class MenuRepository
             $tag = ' <span class="ticket__tag ticket__tag--bbq">BBQ</span>';
         }
 
-        $price = price_display((int) $item['price_cents']);
-        $name  = h($item['name']);
-        $desc  = h($item['description'] ?? '');
+        $price      = price_display((int) $item['price_cents']);
+        $name       = h($item['name']);
+        $nameAttr   = h((string) $item['name']);
+        $desc       = h($item['description'] ?? '');
+        $id         = (int) $item['id'];
+        $priceCents = (int) $item['price_cents'];
 
         return <<<HTML
         <article class="{$classes}">
@@ -119,6 +122,10 @@ final class MenuRepository
             <span class="ticket__price">{$price}<span class="visually-hidden"> zł</span></span>
           </div>
           <p class="ticket__desc">{$desc}</p>
+          <button type="button" class="btn btn--mustard ticket__add"
+            data-menu-item-id="{$id}" data-price-cents="{$priceCents}" data-name="{$nameAttr}">
+            Dodaj do koszyka
+          </button>
         </article>
 HTML;
     }

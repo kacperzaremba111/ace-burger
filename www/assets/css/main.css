@@ -539,6 +539,87 @@ html.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 }
 .map-frame__link:hover { border-color: var(--color-mustard); }
 
+/* ---------- 11b. KOSZYK ---------- */
+.ticket__add {
+  margin-top: 0.9rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+}
+
+.cart-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 450;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-mustard);
+  color: var(--color-ink);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px -6px rgba(0,0,0,0.5);
+}
+.cart-toggle__count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-fire);
+  color: var(--color-cream);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dialogi (natywny <dialog>) — spójne z resztą motywu, wyśrodkowane,
+   z przyciemnionym tłem (::backdrop). */
+.app-dialog {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-char);
+  color: var(--color-cream);
+  padding: 0;
+  width: min(480px, 92vw);
+  max-height: 85vh;
+}
+.app-dialog::backdrop { background: rgba(0,0,0,0.6); }
+.app-dialog__form { padding: 1.6rem; overflow-y: auto; }
+.app-dialog__title { font-family: var(--font-display); text-transform: uppercase; font-size: 1.3rem; margin-bottom: 1rem; }
+.app-dialog__actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.3rem; }
+
+.addon-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
+.addon-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0.5rem 0.7rem; border: 1px dashed var(--color-line); border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+}
+.addon-option__main { display: flex; align-items: center; gap: 0.5rem; }
+.addon-option__price { color: var(--color-mustard); font-family: var(--font-mono); font-size: 0.8rem; }
+.addon-option__qty { width: 4.5rem; padding: 0.3rem 0.5rem; background: var(--color-char-2); border: 1px solid var(--color-line); border-radius: 5px; color: var(--color-cream); }
+.addon-option__qty:disabled { opacity: 0.4; }
+
+.cart-items { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1rem; max-height: 50vh; overflow-y: auto; }
+.cart-item { border-bottom: 1px dashed var(--color-line); padding-bottom: 0.8rem; }
+.cart-item__row { display: flex; justify-content: space-between; gap: 0.75rem; font-weight: 600; }
+.cart-item__price { font-family: var(--font-mono); color: var(--color-mustard); white-space: nowrap; }
+.cart-item__addons, .cart-item__notes { font-size: 0.82rem; color: var(--color-cream-dim); margin: 0.25rem 0 0; }
+.cart-item__remove {
+  margin-top: 0.4rem; font-size: 0.78rem; color: var(--color-fire);
+  background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline;
+}
+.cart-empty { color: var(--color-cream-dim); font-size: 0.9rem; }
+.cart-total { display: flex; justify-content: space-between; font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; border-top: 1px solid var(--color-line); padding-top: 0.9rem; }
+
 /* ---------- 12. FOOTER ---------- */
 .site-footer { border-top: 1px solid var(--color-line); padding: 3rem 0 2.2rem; }
 .site-footer__inner {

@@ -13,6 +13,15 @@ foreach (MenuRepository::categories() as $category) {
 $smash     = $categories['smash']     ?? null;
 $klasyczne = $categories['klasyczne'] ?? null;
 $addons    = MenuRepository::addons();
+
+// Dane dla assets/js/cart.js — lista dodatków do wyboru przy dodawaniu
+// burgera do koszyka (te same dane, co w sekcji #doladuj, żeby cena
+// zawsze była zgodna z tym, co widzi kuchnia po stronie serwera).
+$addonsForJs = array_map(static fn (array $a): array => [
+    'id'         => (int) $a['id'],
+    'name'       => $a['name'],
+    'priceCents' => (int) $a['price_cents'],
+], $addons);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -322,6 +331,52 @@ $addons    = MenuRepository::addons();
     </div>
   </footer>
 
+  <!-- ============ KOSZYK ============
+       Dialogi obsługiwane przez assets/js/cart.js (koszyk w localStorage,
+       suma po stronie klienta wyłącznie poglądowa — serwer w Fazie 5
+       zawsze przelicza ceny samodzielnie z bazy). -->
+  <button type="button" id="cartToggle" class="cart-toggle" aria-label="Otwórz koszyk">
+    <span aria-hidden="true">🛒</span>
+    <span id="cartCount" class="cart-toggle__count" hidden>0</span>
+  </button>
+
+  <dialog id="addonDialog" class="app-dialog addon-dialog">
+    <form method="dialog" class="app-dialog__form" id="addonForm">
+      <h2 class="app-dialog__title" id="addonDialogTitle">Dodaj do koszyka</h2>
+      <div class="field">
+        <label for="addonQty">Ilość</label>
+        <input type="number" id="addonQty" min="1" value="1" style="width:6ch">
+      </div>
+      <div id="addonList" class="addon-list"></div>
+      <div class="field">
+        <label for="addonNotes">Uwagi (opcjonalnie)</label>
+        <input type="text" id="addonNotes" placeholder="np. bez cebuli">
+      </div>
+      <div class="app-dialog__actions">
+        <button type="button" class="btn btn--outline" id="addonCancel">Anuluj</button>
+        <button type="submit" class="btn btn--mustard" id="addonConfirm">Dodaj do koszyka</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="cartDialog" class="app-dialog cart-dialog">
+    <div class="app-dialog__form">
+      <h2 class="app-dialog__title">Twój koszyk</h2>
+      <div id="cartItems" class="cart-items"></div>
+      <p id="cartEmpty" class="cart-empty">Koszyk jest pusty.</p>
+      <div class="cart-total">
+        <span>Razem</span>
+        <span id="cartTotal">0 zł</span>
+      </div>
+      <div class="app-dialog__actions">
+        <button type="button" class="btn btn--outline" id="cartClose">Zamknij</button>
+        <a href="koszyk.php" class="btn btn--mustard" id="cartCheckout">Przejdź do zamówienia</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="application/json" id="addons-data"><?= json_encode($addonsForJs, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?></script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/cart.js" defer></script>
 </body>
 </html>
