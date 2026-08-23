@@ -26,8 +26,15 @@ $user = Auth::user();
       </span>
     </header>
 
-    <!-- Nawigacja do zamowienia.php / menu.php / dodatki.php / ustawienia.php
-         zostanie dodana wraz z tymi stronami w kolejnych fazach (3 i 6). -->
+    <!-- Link do zamowienia.php doljczy w Fazie 6 (panel kuchni). -->
+    <nav class="panel-nav">
+      <?php if ($user['role'] === 'admin'): ?>
+        <a href="kategorie.php">Kategorie</a>
+        <a href="menu.php">Menu</a>
+        <a href="dodatki.php">Dodatki</a>
+      <?php endif; ?>
+    </nav>
+
     <div class="panel-card">
       <p>Zalogowano jako <strong><?= h($user['username']) ?></strong>, rola: <strong><?= h($user['role']) ?></strong>.</p>
     </div>

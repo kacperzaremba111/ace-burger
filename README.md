@@ -37,8 +37,18 @@ www/        document root domeny — strona, koszyk, API, panel admina/kuchni
 ## Uruchomienie lokalne
 
 Zalecane: [Laragon](https://laragon.org/) (Windows) — daje PHP 8.x + MySQL
-bez ręcznej konfiguracji. Do czasu dodania backendu (obecny etap) stronę
-można otworzyć bezpośrednio jako plik `index.html` w przeglądarce.
+bez ręcznej konfiguracji.
+
+1. Zaimportuj schemat i dane startowe (kolejność ma znaczenie):
+   `mysql -u root --default-character-set=utf8mb4 < sql/001_init_schema.sql`
+   (analogicznie 002, 003, 004 — patrz sekcja "Import bazy danych" niżej).
+2. Skopiuj `config/config.example.php` jako `config/config.local.php`
+   i uzupełnij danymi do lokalnej bazy.
+3. Uruchom wbudowany serwer PHP z katalogu repo:
+   `php -S localhost:8000 -t www`
+4. Strona: `http://localhost:8000/`, panel: `http://localhost:8000/panel/login.php`
+   (dane startowe do panelu — patrz `sql/003_seed_admin_user.sql`, zmień
+   hasło od razu po pierwszym zalogowaniu).
 
 ## Import bazy danych — pułapka z kodowaniem
 

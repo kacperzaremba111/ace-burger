@@ -1,3 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../src/bootstrap.php';
+
+$categories = [];
+foreach (MenuRepository::categories() as $category) {
+    $category['items'] = MenuRepository::menuItemsByCategory((int) $category['id']);
+    $categories[$category['slug']] = $category;
+}
+
+$smash     = $categories['smash']     ?? null;
+$klasyczne = $categories['klasyczne'] ?? null;
+$addons    = MenuRepository::addons();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -153,79 +169,9 @@
       </div>
 
       <div class="ticket-grid">
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Delux</h3>
-            <span class="ticket__price">37<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina x3 / cheddar x3 / bekon / cebula / pikle / sos ACE / sałata</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Oklahoma</h3>
-            <span class="ticket__price">27<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / cheddar / sos ACE / cebula</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Ace Klasyk</h3>
-            <span class="ticket__price">31<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / cheddar / pomidor / sos ACE / cebula / pikle / sałata</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash BBQ <span class="ticket__tag ticket__tag--bbq">BBQ</span></h3>
-            <span class="ticket__price">30<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / bekon / cheddar / sos ACE / sos BBQ / cebula / pikle</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Jalapeño <span class="ticket__tag ticket__tag--hot">OSTRY</span></h3>
-            <span class="ticket__price">29<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / cheddar / jalapeño / cebula / sos jalapeño</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Wiejski</h3>
-            <span class="ticket__price">33<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / placek ziemniaczany / cebula / sos wiejski / bekon / cheddar / pikle</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Amigo <span class="ticket__tag ticket__tag--hot">OSTRY</span></h3>
-            <span class="ticket__price">36<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / nachosy / sos sriracha-mayo / chorizo / salsa / cheddar / cebula / sałata / jalapeño</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash Serowiec</h3>
-            <span class="ticket__price">35<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / cheddar x3 / krążki cebulowe x3 / sos ACE / bekon / jalapeño / cebula / pikle / sałata</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Smash El Picante <span class="ticket__tag ticket__tag--hot">OSTRY</span></h3>
-            <span class="ticket__price">31<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Wołowina / jalapeño / sos ostry / sos ACE / pikle / cebula / cheddar / sałata</p>
-        </article>
-
+<?php if ($smash): foreach ($smash['items'] as $item): ?>
+<?= MenuRepository::renderTicket($item) . "\n" ?>
+<?php endforeach; endif; ?>
       </div>
     </section>
 
@@ -247,31 +193,9 @@
       </div>
 
       <div class="ticket-grid">
-
-        <article class="ticket ticket--feature reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Big Boy</h3>
-            <span class="ticket__price">41<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Szarpana wieprzowina / wołowina / cheddar / sos BBQ / sos ACE / krążki cebulowe / sałata / pikle / cebula / jalapeño</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Bekon</h3>
-            <span class="ticket__price">33<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Bekon / wołowina / sos ACE / sos BBQ / cheddar / pikle / cebula / sałata</p>
-        </article>
-
-        <article class="ticket reveal">
-          <div class="ticket__row">
-            <h3 class="ticket__name">Teksański Poszarpany</h3>
-            <span class="ticket__price">30<span class="visually-hidden"> zł</span></span>
-          </div>
-          <p class="ticket__desc">Szarpana wieprzowina / bekon / sos BBQ / sos ACE / cheddar / krążki cebulowe / pikle</p>
-        </article>
-
+<?php if ($klasyczne): foreach ($klasyczne['items'] as $item): ?>
+<?= MenuRepository::renderTicket($item) . "\n" ?>
+<?php endforeach; endif; ?>
       </div>
     </section>
 
@@ -285,13 +209,9 @@
         </div>
 
         <ul class="addons__list reveal">
-          <li><span>Kotlet wołowy</span><span class="addons__price">11 zł</span></li>
-          <li><span>Dodatkowy placek ziemniaczany</span><span class="addons__price">4 zł</span></li>
-          <li><span>Dodatkowy panierowany ser</span><span class="addons__price">9 zł</span></li>
-          <li><span>Dodatkowe warzywa</span><span class="addons__price">3 zł</span></li>
-          <li><span>Dodatkowy bekon / jalapeño / ser</span><span class="addons__price">3 zł</span></li>
-          <li><span>Dodatkowy sos (ACE, wiejski, sriracha, BBQ)</span><span class="addons__price">2 zł</span></li>
-          <li><span>Sos serowy</span><span class="addons__price">6 zł</span></li>
+<?php foreach ($addons as $addon): ?>
+<?= MenuRepository::renderAddonListItem($addon) . "\n" ?>
+<?php endforeach; ?>
         </ul>
       </div>
     </section>
@@ -304,18 +224,11 @@
       Poniższy blok jest CELOWO zakomentowany i zastąpiony kartą-placeholderem —
       "<slug>" (tu, jako wzorzec, dosłowna domena z przykładowego wdrożenia:
       pizzeria-trzech-braci.skubacz.pl) NIE jest subdomeną ACE BURGER, więc
-      wyświetlałby menu i przyjmował zamówienia innej restauracji. Podgląd na
-      tej domenie pokazał też, że ich widget ma problem z czytelnością tekstu —
-      to zawartość z cudzego iframe'a, poza zasięgiem main.css; kolory własnego
-      widgetu ACE BURGER skonfigurujecie w panelu Restaumatic po założeniu konta.
+      wyświetlałby menu i przyjmował zamówienia innej restauracji.
 
-      Aby aktywować:
-        1. Załóż konto ACE BURGER w Restaumatic i pobierz przypisaną subdomenę
-           (panel Restaumatic → Widget zamówień), np. "ace-burger.skubacz.pl".
-        2. Podmień "pizzeria-trzech-braci.skubacz.pl" na tę subdomenę w obu
-           miejscach poniżej (iframe src + script src).
-        3. Odkomentuj blok <div id="restaumatic_menu_widget_wrapper"> i <script>,
-           usuń <div class="order-online__placeholder">.
+      UWAGA: ta sekcja zostanie zastąpiona WŁASNYM systemem zamówień
+      (koszyk + Przelewy24 / płatność przy odbiorze) w Fazie 4-5 tego planu —
+      placeholder poniżej jest tymczasowy do czasu ukończenia tamtych faz.
     -->
     <section class="order-online" id="zamow">
       <div class="order-online__inner">
@@ -326,23 +239,17 @@
         </div>
 
         <div class="order-online__widget-wrap reveal">
-          <!--
-          <div id="restaumatic_menu_widget_wrapper">
-            <iframe allow="geolocation" src="https://pizzeria-trzech-braci.skubacz.pl/restauracje" width="100%" title="Zamówienie online — menu ACE BURGER"></iframe>
-          </div>
-          -->
           <div class="order-online__placeholder">
             <p class="order-online__placeholder-title">Zamawianie online — już wkrótce</p>
             <p class="order-online__placeholder-text">
-              Ta sekcja jest przygotowana pod widget Restaumatic. Do czasu podłączenia
-              konta zamówienia przyjmujemy telefonicznie i na barze.
+              Własny system zamówień (koszyk + płatność) jest w budowie. Do czasu
+              jego ukończenia zamówienia przyjmujemy telefonicznie i na barze.
             </p>
             <a href="tel:729110496" class="btn btn--mustard">Zamów telefonicznie: 729 110 496</a>
           </div>
         </div>
       </div>
     </section>
-    <!-- <script type="text/javascript" src="https://pizzeria-trzech-braci.skubacz.pl/menu_widget.js" async></script> -->
 
     <!-- ============ GODZINY + KONTAKT ============ -->
     <section class="info" id="godziny">
