@@ -225,36 +225,31 @@ $addonsForJs = array_map(static fn (array $a): array => [
       </div>
     </section>
 
-    <!-- ============ ZAMÓW ONLINE (Restaumatic) ============
-      Integracja wzorowana na realnym wdrożeniu Restaumatic (widget "skubacz.pl"):
-      iframe wskazujący na "https://<slug>.skubacz.pl/restauracje" + skrypt
-      "https://<slug>.skubacz.pl/menu_widget.js" osadzone na stronie restauracji.
-
-      Poniższy blok jest CELOWO zakomentowany i zastąpiony kartą-placeholderem —
-      "<slug>" (tu, jako wzorzec, dosłowna domena z przykładowego wdrożenia:
-      pizzeria-trzech-braci.skubacz.pl) NIE jest subdomeną ACE BURGER, więc
-      wyświetlałby menu i przyjmował zamówienia innej restauracji.
-
-      UWAGA: ta sekcja zostanie zastąpiona WŁASNYM systemem zamówień
-      (koszyk + Przelewy24 / płatność przy odbiorze) w Fazie 4-5 tego planu —
-      placeholder poniżej jest tymczasowy do czasu ukończenia tamtych faz.
+    <!-- ============ ZAMÓW ONLINE ============
+      Własny system zamówień (Faza 4-5): koszyk w localStorage (przyciski
+      "Dodaj do koszyka" na kartach burgerów wyżej) + www/koszyk.php +
+      api/zamowienia.php + Przelewy24 (src/Przelewy24Client.php) albo
+      płatność przy odbiorze. Płatność online wymaga realnych danych
+      sandbox/produkcyjnych Przelewy24 w config/config.local.php — do tego
+      czasu klient wciąż może zamówić z płatnością przy odbiorze, ścieżka
+      "na_miejscu" działa już w pełni end-to-end (zweryfikowane testami).
     -->
     <section class="order-online" id="zamow">
       <div class="order-online__inner">
         <div class="menu-section__head reveal">
           <p class="eyebrow">Zamów online</p>
           <h2 class="section-title">Zamów przez internet</h2>
-          <p class="section-lede">Zapłać online lub przy odbiorze — zamówienie trafi prosto do naszej kuchni.</p>
+          <p class="section-lede">Wybierz burgery wyżej, dodaj do koszyka, zapłać online lub przy odbiorze — zamówienie trafi prosto do naszej kuchni.</p>
         </div>
 
         <div class="order-online__widget-wrap reveal">
           <div class="order-online__placeholder">
-            <p class="order-online__placeholder-title">Zamawianie online — już wkrótce</p>
+            <p class="order-online__placeholder-title">Twój koszyk czeka 🛒</p>
             <p class="order-online__placeholder-text">
-              Własny system zamówień (koszyk + płatność) jest w budowie. Do czasu
-              jego ukończenia zamówienia przyjmujemy telefonicznie i na barze.
+              Dodaj burgery do koszyka przyciskiem przy każdej pozycji menu, a potem
+              kliknij ikonę koszyka w prawym dolnym rogu, żeby przejść do zamówienia.
             </p>
-            <a href="tel:729110496" class="btn btn--mustard">Zamów telefonicznie: 729 110 496</a>
+            <a href="koszyk.php" class="btn btn--mustard">Przejdź do koszyka</a>
           </div>
         </div>
       </div>
