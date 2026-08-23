@@ -1,0 +1,106 @@
+/* Panel admina/kuchni ACE BURGER — minimalny, spójny z paletą marki
+   (te same tokeny co assets/css/main.css), ale osobny arkusz — panel
+   wewnętrzny nie musi dzielić całego systemu stylów strony publicznej. */
+
+:root {
+  --color-ink: #15110d;
+  --color-char: #1f1811;
+  --color-char-2: #241c14;
+  --color-cream: #f3ead9;
+  --color-cream-dim: #cdbfa8;
+  --color-mustard: #f0b429;
+  --color-fire: #e34328;
+  --color-line: rgba(243, 234, 217, 0.14);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.panel-shell {
+  max-width: 960px;
+  margin-inline: auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+.panel-header__brand { font-weight: 700; letter-spacing: 0.02em; color: var(--color-mustard); }
+.panel-header__user { font-size: 0.9rem; color: var(--color-cream-dim); }
+.panel-header__user a { color: var(--color-fire); text-decoration: none; margin-left: 0.75rem; }
+.panel-header__user a:hover { text-decoration: underline; }
+
+.panel-card {
+  background: var(--color-char);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+
+.panel-nav { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+.panel-nav a {
+  color: var(--color-cream);
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+.panel-nav a:hover { border-color: var(--color-mustard); color: var(--color-mustard); }
+
+.login-form { max-width: 360px; margin: 4rem auto; }
+.login-form h1 { font-size: 1.4rem; margin-bottom: 1.25rem; color: var(--color-cream); }
+
+.field { margin-bottom: 1rem; }
+.field label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; color: var(--color-cream-dim); }
+.field input[type="text"],
+.field input[type="password"] {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  background: var(--color-char-2);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  color: var(--color-cream);
+  font-size: 1rem;
+}
+.field input:focus { outline: 2px solid var(--color-mustard); outline-offset: 1px; }
+
+/* Honeypot — pole ma być niewidoczne dla ludzi, ale dostępne dla botów
+   wypełniających formularz automatycznie (patrz koszyk.php w Fazie 4). */
+.field--honeypot { position: absolute; left: -9999px; top: -9999px; }
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  background: var(--color-mustard);
+  color: var(--color-ink);
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { filter: brightness(1.08); }
+
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+.alert--error { background: rgba(227, 67, 40, 0.15); color: #ff9683; border: 1px solid rgba(227, 67, 40, 0.4); }
