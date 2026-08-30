@@ -1,6 +1,10 @@
 # Sekrety — nigdy nie commitować (dane DB, klucze Przelewy24)
 config/config.local.php
 
+# Zrzuty bazy danych — zawierają realne dane klientów (imię, telefon z zamówień testowych)
+*.sql
+!sql/*.sql
+
 # Logi
 *.log
 
