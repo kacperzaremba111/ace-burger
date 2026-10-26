@@ -1,6 +1,6 @@
 # FAST FOOD — strona + system zamówień online
 
-Strona restauracji FAST FOOD (Sokołów Podlaski) wraz z własnym systemem
+Strona przykładowej restauracji FAST FOOD (dane adresowe fikcyjne) wraz z własnym systemem
 zamówień online: koszyk, płatność przez Przelewy24 (lub przy odbiorze),
 panel dla pracowników poszczególnych stref lokalu oraz panel admina.
 

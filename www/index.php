@@ -28,12 +28,12 @@ $addonsForJs = array_map(static fn (array $a): array => [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAST FOOD — Smash burgery w Sokołowie Podlaskim | ul. Wolności 47/2</title>
-  <meta name="description" content="FAST FOOD — smash burgery robione na gorącej blasze w Sokołowie Podlaskim. Zamów telefonicznie: 729 110 496. Otwarte codziennie, ul. Wolności 47/2.">
+  <title>FAST FOOD — Smash burgery w Radomiu | ul. Kasztanowa 21</title>
+  <meta name="description" content="FAST FOOD — smash burgery robione na gorącej blasze w Radomiu. Zamów telefonicznie: 729 110 496. Otwarte codziennie, ul. Kasztanowa 21.">
   <meta name="theme-color" content="#15110d">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="FAST FOOD — Sokołów Podlaski">
+  <meta property="og:title" content="FAST FOOD — Radom">
   <meta property="og:description" content="Smash burgery robione na gorącej blasze. Zamów: 729 110 496.">
   <meta property="og:type" content="website">
 
@@ -59,8 +59,8 @@ $addonsForJs = array_map(static fn (array $a): array => [
     "telephone": "+48729110496",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "ul. Wolności 47/2",
-      "addressLocality": "Sokołów Podlaski",
+      "streetAddress": "ul. Kasztanowa 21",
+      "addressLocality": "Radom",
       "addressCountry": "PL"
     },
     "openingHoursSpecification": [
@@ -123,7 +123,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
     <section class="hero">
       <div class="hero__grill" aria-hidden="true"></div>
       <div class="hero__inner">
-        <p class="eyebrow reveal">Sokołów Podlaski · ul. Wolności 47/2</p>
+        <p class="eyebrow reveal">Radom · ul. Kasztanowa 21</p>
         <h1 class="hero__title reveal">
           SMASHED.<br>
           STACKED.<br>
@@ -162,10 +162,10 @@ $addonsForJs = array_map(static fn (array $a): array => [
       <div class="marquee__track">
         <span>WOŁOWINA 100%</span><span>•</span><span>SMAŻONE NA OSTRO</span><span>•</span>
         <span>SOS ACE NA WSZYSTKO</span><span>•</span><span>FRYTKI I BATATY</span><span>•</span>
-        <span>ZAMÓWIENIA NA BARZE</span><span>•</span><span>SOKOŁÓW PODLASKI</span><span>•</span>
+        <span>ZAMÓWIENIA NA BARZE</span><span>•</span><span>RADOM</span><span>•</span>
         <span>WOŁOWINA 100%</span><span>•</span><span>SMAŻONE NA OSTRO</span><span>•</span>
         <span>SOS ACE NA WSZYSTKO</span><span>•</span><span>FRYTKI I BATATY</span><span>•</span>
-        <span>ZAMÓWIENIA NA BARZE</span><span>•</span><span>SOKOŁÓW PODLASKI</span><span>•</span>
+        <span>ZAMÓWIENIA NA BARZE</span><span>•</span><span>RADOM</span><span>•</span>
       </div>
     </div>
 
@@ -275,8 +275,8 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <a href="tel:729110496" class="info__phone">729 110 496</a>
           <address class="info__address">
             FAST FOOD<br>
-            ul. Wolności 47/2<br>
-            Sokołów Podlaski
+            ul. Kasztanowa 21<br>
+            Radom
           </address>
           <p class="info__note">Do każdego zamówienia na wynos doliczamy 1 zł (koszt opakowania).</p>
         </div>
@@ -285,8 +285,8 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <h2 class="section-title section-title--sm">Jak trafić</h2>
           <div class="map-frame">
             <iframe
-              src="https://www.google.com/maps?q=ul.+Wolno%C5%9Bci+47%2F2%2C+Sok%C3%B3%C5%82%C3%B3w+Podlaski&output=embed"
-              title="Mapa dojazdu do FAST FOOD — ul. Wolności 47/2, Sokołów Podlaski"
+              src="https://www.google.com/maps?q=ul.+Kasztanowa%2C+Radom&output=embed"
+              title="Mapa dojazdu do FAST FOOD — ul. Kasztanowa 21, Radom"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen>
@@ -294,7 +294,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
           </div>
           <a
             class="map-frame__link"
-            href="https://www.google.com/maps/search/?api=1&query=ul.+Wolno%C5%9Bci+47%2F2%2C+Sok%C3%B3%C5%82%C3%B3w+Podlaski"
+            href="https://www.google.com/maps/search/?api=1&query=ul.+Kasztanowa%2C+Radom"
             target="_blank" rel="noopener noreferrer">
             Otwórz w Mapach Google ↗
           </a>
@@ -321,7 +321,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </nav>
-      <p class="site-footer__meta">ul. Wolności 47/2, Sokołów Podlaski · tel. 729 110 496</p>
+      <p class="site-footer__meta">ul. Kasztanowa 21, Radom · tel. 729 110 496</p>
       <p class="site-footer__copy">© <span id="year"></span> FAST FOOD. Wszystkie ceny w PLN.</p>
     </div>
   </footer>

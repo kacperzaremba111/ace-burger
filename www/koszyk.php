@@ -104,11 +104,11 @@ $zones     = ZoneRepository::all();
             </div>
             <div class="field">
               <label for="delivery_city">Miejscowość</label>
-              <input type="text" id="delivery_city" name="delivery_city" value="Sokołów Podlaski" data-required-for-delivery="true">
+              <input type="text" id="delivery_city" name="delivery_city" value="Radom" data-required-for-delivery="true">
             </div>
             <div class="field">
               <label for="delivery_postal_code">Kod pocztowy</label>
-              <input type="text" id="delivery_postal_code" name="delivery_postal_code" placeholder="08-300">
+              <input type="text" id="delivery_postal_code" name="delivery_postal_code" placeholder="26-600">
             </div>
             <div class="field">
               <label for="delivery_notes">Uwagi do dostawy (piętro, domofon...)</label>
