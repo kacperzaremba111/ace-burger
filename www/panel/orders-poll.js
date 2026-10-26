@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — orders-poll.js (tylko www/panel/zamowienia.php)
+   FAST FOOD — orders-poll.js (tylko www/panel/zamowienia.php)
    Odświeża listę zamówień pollingiem co ~20s + przycisk ręcznego
    odświeżenia. Websockety niedostępne na hostingu współdzielonym —
    polling jest właściwym rozwiązaniem przy tej skali (patrz plan).

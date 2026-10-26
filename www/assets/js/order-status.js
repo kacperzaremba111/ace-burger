@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — order-status.js (tylko www/zamowienie/platnosc-powrot.php)
+   FAST FOOD — order-status.js (tylko www/zamowienie/platnosc-powrot.php)
    Odpytuje status zamówienia po powrocie z Przelewy24. Return URL od P24
    NIE jest wiarygodnym dowodem płatności (klient mógł zamknąć kartę w
    trakcie) — to tylko UI-owa wygoda; prawdziwe potwierdzenie ustawia

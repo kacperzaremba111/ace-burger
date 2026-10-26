@@ -40,7 +40,7 @@ final class PanelView
 
         return <<<HTML
             <header class="panel-header">
-              <span class="panel-header__brand">ACE BURGER — Panel</span>
+              <span class="panel-header__brand">FAST FOOD — Panel</span>
               <span class="panel-header__user">
                 {$fullName} ({$roleLabel})
                 <a href="logout.php">Wyloguj</a>

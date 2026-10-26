@@ -28,12 +28,12 @@ $addonsForJs = array_map(static fn (array $a): array => [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACE BURGER — Smash burgery w Sokołowie Podlaskim | ul. Wolności 47/2</title>
-  <meta name="description" content="ACE BURGER — smash burgery robione na gorącej blasze w Sokołowie Podlaskim. Zamów telefonicznie: 729 110 496. Otwarte codziennie, ul. Wolności 47/2.">
+  <title>FAST FOOD — Smash burgery w Sokołowie Podlaskim | ul. Wolności 47/2</title>
+  <meta name="description" content="FAST FOOD — smash burgery robione na gorącej blasze w Sokołowie Podlaskim. Zamów telefonicznie: 729 110 496. Otwarte codziennie, ul. Wolności 47/2.">
   <meta name="theme-color" content="#15110d">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="ACE BURGER — Sokołów Podlaski">
+  <meta property="og:title" content="FAST FOOD — Sokołów Podlaski">
   <meta property="og:description" content="Smash burgery robione na gorącej blasze. Zamów: 729 110 496.">
   <meta property="og:type" content="website">
 
@@ -53,7 +53,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
   {
     "@context": "https://schema.org",
     "@type": "FastFoodRestaurant",
-    "name": "ACE BURGER",
+    "name": "FAST FOOD",
     "servesCuisine": "Burgers",
     "priceRange": "27-41 PLN",
     "telephone": "+48729110496",
@@ -82,7 +82,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
   <!-- ============ NAGŁÓWEK / NAWIGACJA ============ -->
   <header class="site-header" id="top">
     <div class="site-header__inner">
-      <a href="#top" class="logo" aria-label="ACE BURGER — strona główna">
+      <a href="#top" class="logo" aria-label="FAST FOOD — strona główna">
         <span class="logo__mark" aria-hidden="true">
           <svg viewBox="0 0 48 48" width="34" height="34">
             <circle cx="24" cy="24" r="22" fill="var(--color-mustard)"/>
@@ -91,7 +91,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
             <path d="M13 18 c1 -6 8 -9 11 -9 s10 3 11 9 Z" fill="var(--color-fire)"/>
           </svg>
         </span>
-        <span class="logo__text">ACE<em>BURGER</em></span>
+        <span class="logo__text">FAST<em>FOOD</em></span>
       </a>
 
       <nav class="primary-nav" id="primary-nav" aria-label="Nawigacja główna">
@@ -274,7 +274,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <p class="info__text">Zamówienia przyjmujemy telefonicznie oraz na barze.</p>
           <a href="tel:729110496" class="info__phone">729 110 496</a>
           <address class="info__address">
-            ACE BURGER<br>
+            FAST FOOD<br>
             ul. Wolności 47/2<br>
             Sokołów Podlaski
           </address>
@@ -286,7 +286,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <div class="map-frame">
             <iframe
               src="https://www.google.com/maps?q=ul.+Wolno%C5%9Bci+47%2F2%2C+Sok%C3%B3%C5%82%C3%B3w+Podlaski&output=embed"
-              title="Mapa dojazdu do ACE BURGER — ul. Wolności 47/2, Sokołów Podlaski"
+              title="Mapa dojazdu do FAST FOOD — ul. Wolności 47/2, Sokołów Podlaski"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen>
@@ -308,8 +308,8 @@ $addonsForJs = array_map(static fn (array $a): array => [
   <!-- ============ STOPKA ============ -->
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <a href="#top" class="logo logo--footer" aria-label="ACE BURGER — strona główna">
-        <span class="logo__text">ACE<em>BURGER</em></span>
+      <a href="#top" class="logo logo--footer" aria-label="FAST FOOD — strona główna">
+        <span class="logo__text">FAST<em>FOOD</em></span>
       </a>
       <nav aria-label="Nawigacja w stopce">
         <ul class="site-footer__list">
@@ -322,7 +322,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
         </ul>
       </nav>
       <p class="site-footer__meta">ul. Wolności 47/2, Sokołów Podlaski · tel. 729 110 496</p>
-      <p class="site-footer__copy">© <span id="year"></span> ACE BURGER. Wszystkie ceny w PLN.</p>
+      <p class="site-footer__copy">© <span id="year"></span> FAST FOOD. Wszystkie ceny w PLN.</p>
     </div>
   </footer>
 

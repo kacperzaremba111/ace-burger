@@ -1,6 +1,6 @@
 <?php
 /**
- * Szablon konfiguracji ACE BURGER.
+ * Szablon konfiguracji FAST FOOD.
  *
  * Skopiuj ten plik jako "config.local.php" (w tym samym katalogu) i uzupełnij
  * prawdziwymi wartościami — osobno lokalnie i na serwerze produkcyjnym.

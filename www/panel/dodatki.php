@@ -60,7 +60,7 @@ $csrfToken = Csrf::token();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dodatki — Panel ACE BURGER</title>
+  <title>Dodatki — Panel FAST FOOD</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
   <script src="panel-confirm.js" defer></script>

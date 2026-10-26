@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — cart.js
+   FAST FOOD — cart.js
    Koszyk klienta w localStorage. Suma po stronie klienta jest
    WYŁĄCZNIE poglądowa — serwer (Faza 5) zawsze przelicza ceny
    samodzielnie z bazy przy tworzeniu zamówienia, więc podmiana

@@ -1,4 +1,4 @@
--- ACE BURGER — generyczna tabela do rate-limitingu (logowanie do panelu,
+-- FAST FOOD — generyczna tabela do rate-limitingu (logowanie do panelu,
 -- pozniej tez tworzenie zamowien w /api/zamowienia.php).
 
 USE ace_burger;

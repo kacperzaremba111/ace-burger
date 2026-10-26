@@ -1,4 +1,4 @@
--- ACE BURGER — konto startowe panelu admina
+-- FAST FOOD — konto startowe panelu admina
 --
 -- !!! HASŁO PLACEHOLDER — DO NATYCHMIASTOWEJ ZMIANY !!!
 -- Login:  admin

@@ -1,4 +1,4 @@
-# ACE BURGER — konfiguracja Apache dla document root.
+# FAST FOOD — konfiguracja Apache dla document root.
 # UWAGA: reguła przekierowania HTTPS poniżej nie była testowana na żywym
 # Apache (środowisko deweloperskie to wbudowany serwer PHP, który .htaccess
 # ignoruje) — to standardowa, powszechnie używana reguła mod_rewrite, ale

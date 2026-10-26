@@ -1,6 +1,6 @@
-# ACE BURGER — strona + system zamówień online
+# FAST FOOD — strona + system zamówień online
 
-Strona restauracji ACE BURGER (Sokołów Podlaski) wraz z własnym systemem
+Strona restauracji FAST FOOD (Sokołów Podlaski) wraz z własnym systemem
 zamówień online: koszyk, płatność przez Przelewy24 (lub przy odbiorze),
 panel dla pracowników poszczególnych stref lokalu oraz panel admina.
 

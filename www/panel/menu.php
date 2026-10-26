@@ -81,7 +81,7 @@ $tagLabel = ['none' => '—', 'hot' => 'OSTRY', 'bbq' => 'BBQ'];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu — Panel ACE BURGER</title>
+  <title>Menu — Panel FAST FOOD</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
   <script src="panel-confirm.js" defer></script>

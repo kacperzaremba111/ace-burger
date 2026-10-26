@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — main.js
+   FAST FOOD — main.js
    Vanilla JS (ES6+), zwykły skrypt ładowany z atrybutem "defer"
    ========================================================= */
 

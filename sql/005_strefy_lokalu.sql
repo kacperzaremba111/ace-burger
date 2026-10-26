@@ -1,4 +1,4 @@
--- ACE BURGER — strefy lokalu + konta pracowników przypisane do stref
+-- FAST FOOD — strefy lokalu + konta pracowników przypisane do stref
 --
 -- Klient przy zamówieniu wybiera strefę lokalu, z której korzysta.
 -- Pracownik (rola "pracownik") widzi i obsługuje WYŁĄCZNIE zamówienia

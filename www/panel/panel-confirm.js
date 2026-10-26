@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — panel-confirm.js
+   FAST FOOD — panel-confirm.js
    Potwierdzenie przed usunięciem (kategorie.php, menu.php, dodatki.php).
 
    CELOWO nie używamy atrybutu onsubmit="confirm('...nazwa z bazy...')"

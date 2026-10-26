@@ -100,7 +100,7 @@ if ($paymentMethod === 'przelewy24') {
         $redirectUrl = $p24->registerTransaction([
             'sessionId'   => $order['orderNumber'],
             'amount'      => $order['totalCents'],
-            'description' => 'Zamówienie ' . $order['orderNumber'] . ' — ACE BURGER',
+            'description' => 'Zamówienie ' . $order['orderNumber'] . ' — FAST FOOD',
             'email'       => $customer['customer_email'] ?? 'zamowienia@ace-burger.pl',
             'urlReturn'   => $baseUrl . '/zamowienie/platnosc-powrot.php?nr=' . urlencode($order['orderNumber']),
             'urlStatus'   => $baseUrl . '/api/p24-webhook.php',

@@ -1,4 +1,4 @@
--- ACE BURGER — schemat bazy danych (v1)
+-- FAST FOOD — schemat bazy danych (v1)
 -- Ceny wszędzie w groszach (INT), żeby uniknąć błędów zaokrągleń
 -- i być zgodnym z formatem kwot wymaganym przez API Przelewy24.
 

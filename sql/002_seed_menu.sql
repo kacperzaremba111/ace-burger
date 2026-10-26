@@ -1,4 +1,4 @@
--- ACE BURGER — dane startowe menu, 1:1 z obecnym index.html
+-- FAST FOOD — dane startowe menu, 1:1 z obecnym index.html
 -- (patrz sekcje #smash, #klasyczne, #doladuj)
 
 USE ace_burger;

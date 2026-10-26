@@ -1,5 +1,5 @@
 /* =========================================================
-   ACE BURGER — checkout.js (tylko www/koszyk.php)
+   FAST FOOD — checkout.js (tylko www/koszyk.php)
    Renderuje podsumowanie koszyka z localStorage i obsługuje formularz
    zamówienia. Zakłada, że cart.js jest załadowany wcześniej na tej
    samej stronie — korzysta z jego globalnych funkcji: money(),

@@ -30,7 +30,7 @@ $query = static fn (array $params): string => 'zamowienia.php?' . http_build_que
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zamówienia — Panel ACE BURGER</title>
+  <title>Zamówienia — Panel FAST FOOD</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="panel.css">
 </head>

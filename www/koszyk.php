@@ -12,7 +12,7 @@ $zones     = ZoneRepository::all();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koszyk i zamówienie — ACE BURGER</title>
+  <title>Koszyk i zamówienie — FAST FOOD</title>
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +25,8 @@ $zones     = ZoneRepository::all();
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a href="index.php" class="logo" aria-label="ACE BURGER — strona główna">
-        <span class="logo__text">ACE<em>BURGER</em></span>
+      <a href="index.php" class="logo" aria-label="FAST FOOD — strona główna">
+        <span class="logo__text">FAST<em>FOOD</em></span>
       </a>
       <a href="index.php#smash" class="btn btn--outline">← Wróć do menu</a>
     </div>

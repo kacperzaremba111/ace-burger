@@ -1,4 +1,4 @@
--- ACE BURGER — konta DEMO panelu (do prezentacji projektu, np. w portfolio)
+-- FAST FOOD — konta DEMO panelu (do prezentacji projektu, np. w portfolio)
 --
 -- !!! HASŁA SĄ JAWNE (wypisane w README.md, sekcja "Demo") !!!
 -- Używać WYŁĄCZNIE lokalnie / na instancji demonstracyjnej. Na produkcji
