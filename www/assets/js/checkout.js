@@ -148,7 +148,7 @@
     } catch (err) {
       if (statusEl) {
         statusEl.textContent = err.userMessage
-          || 'Nie udało się złożyć zamówienia. Spróbuj ponownie albo zadzwoń: 729 110 496.';
+          || 'Nie udało się złożyć zamówienia. Spróbuj ponownie albo zadzwoń: 123 456 789.';
         statusEl.className = 'checkout__status checkout__status--error';
       }
       if (submitBtn) submitBtn.disabled = false;

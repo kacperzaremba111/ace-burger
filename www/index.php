@@ -29,12 +29,12 @@ $addonsForJs = array_map(static fn (array $a): array => [
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAST FOOD — Smash burgery w Radomiu | ul. Kasztanowa 21</title>
-  <meta name="description" content="FAST FOOD — smash burgery robione na gorącej blasze w Radomiu. Zamów telefonicznie: 729 110 496. Otwarte codziennie, ul. Kasztanowa 21.">
+  <meta name="description" content="FAST FOOD — smash burgery robione na gorącej blasze w Radomiu. Zamów telefonicznie: 123 456 789. Otwarte codziennie, ul. Kasztanowa 21.">
   <meta name="theme-color" content="#15110d">
 
   <!-- Open Graph -->
   <meta property="og:title" content="FAST FOOD — Radom">
-  <meta property="og:description" content="Smash burgery robione na gorącej blasze. Zamów: 729 110 496.">
+  <meta property="og:description" content="Smash burgery robione na gorącej blasze. Zamów: 123 456 789.">
   <meta property="og:type" content="website">
 
   <!-- Fonts -->
@@ -56,7 +56,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
     "name": "FAST FOOD",
     "servesCuisine": "Burgers",
     "priceRange": "27-41 PLN",
-    "telephone": "+48729110496",
+    "telephone": "+48123456789",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "ul. Kasztanowa 21",
@@ -105,7 +105,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
         </ul>
         <div class="primary-nav__ctas">
           <a href="#zamow" class="btn btn--mustard primary-nav__cta">Zamów online</a>
-          <a href="tel:729110496" class="btn btn--fire primary-nav__cta">Zadzwoń: 729 110 496</a>
+          <a href="tel:123456789" class="btn btn--fire primary-nav__cta">Zadzwoń: 123 456 789</a>
         </div>
       </nav>
 
@@ -135,7 +135,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
         </p>
         <div class="hero__actions reveal">
           <a href="#smash" class="btn btn--mustard">Zobacz menu</a>
-          <a href="tel:729110496" class="btn btn--outline">Zamów: 729 110 496</a>
+          <a href="tel:123456789" class="btn btn--outline">Zamów: 123 456 789</a>
         </div>
       </div>
       <svg class="hero__burger" viewBox="0 0 400 340" aria-hidden="true">
@@ -272,7 +272,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
         <div class="info__card info__card--fire reveal" id="kontakt">
           <h2 class="section-title section-title--sm">Zamów</h2>
           <p class="info__text">Zamówienia przyjmujemy telefonicznie oraz na barze.</p>
-          <a href="tel:729110496" class="info__phone">729 110 496</a>
+          <a href="tel:123456789" class="info__phone">123 456 789</a>
           <address class="info__address">
             FAST FOOD<br>
             ul. Kasztanowa 21<br>
@@ -321,7 +321,7 @@ $addonsForJs = array_map(static fn (array $a): array => [
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </nav>
-      <p class="site-footer__meta">ul. Kasztanowa 21, Radom · tel. 729 110 496</p>
+      <p class="site-footer__meta">ul. Kasztanowa 21, Radom · tel. 123 456 789</p>
       <p class="site-footer__copy">© <span id="year"></span> FAST FOOD. Wszystkie ceny w PLN.</p>
     </div>
   </footer>

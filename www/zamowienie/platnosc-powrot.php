@@ -26,7 +26,7 @@ $order       = $orderNumber !== '' ? OrderRepository::findByNumber($orderNumber)
     <div class="checkout__inner panel-block" style="text-align:center">
       <?php if (!$order): ?>
         <h1 class="section-title section-title--sm">Nie znaleziono zamówienia</h1>
-        <p class="section-lede">Sprawdź, czy link jest poprawny, albo zadzwoń: <a href="tel:729110496" style="color:var(--color-mustard)">729 110 496</a>.</p>
+        <p class="section-lede">Sprawdź, czy link jest poprawny, albo zadzwoń: <a href="tel:123456789" style="color:var(--color-mustard)">123 456 789</a>.</p>
       <?php else: ?>
         <h1 class="section-title section-title--sm">Numer zamówienia: <?= h($order['order_number']) ?></h1>
         <p id="statusText" class="section-lede" data-order-number="<?= h($order['order_number']) ?>">
@@ -35,7 +35,7 @@ $order       = $orderNumber !== '' ? OrderRepository::findByNumber($orderNumber)
         <p class="checkout__status" style="margin-top:1.5rem">
           Jeśli status nie zmieni się przez dłuższą chwilę, a płatność została pobrana —
           zamówienie i tak trafiło do naszej kuchni. W razie wątpliwości zadzwoń:
-          <a href="tel:729110496" style="color:var(--color-mustard)">729 110 496</a>.
+          <a href="tel:123456789" style="color:var(--color-mustard)">123 456 789</a>.
         </p>
       <?php endif; ?>
     </div>

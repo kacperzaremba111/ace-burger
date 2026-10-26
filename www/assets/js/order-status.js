@@ -21,7 +21,7 @@
     gotowe: 'Zamówienie gotowe do odbioru!',
     w_dostawie: 'Zamówienie jest w drodze!',
     wydane: 'Zamówienie zostało wydane. Smacznego!',
-    anulowane: 'Zamówienie zostało anulowane. Zadzwoń, jeśli to pomyłka: 729 110 496.',
+    anulowane: 'Zamówienie zostało anulowane. Zadzwoń, jeśli to pomyłka: 123 456 789.',
   };
 
   const MAX_ATTEMPTS = 40; // ~2 minuty przy 3s odstępach
@@ -53,7 +53,7 @@
     } else {
       statusEl.textContent =
         'Nie udało się potwierdzić statusu automatycznie. Jeśli płatność ' +
-        'przeszła, zamówienie i tak trafiło do kuchni — w razie wątpliwości zadzwoń: 729 110 496.';
+        'przeszła, zamówienie i tak trafiło do kuchni — w razie wątpliwości zadzwoń: 123 456 789.';
     }
   }
 

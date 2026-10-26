@@ -26,7 +26,7 @@ $order       = $orderNumber !== '' ? OrderRepository::findByNumber($orderNumber)
     <div class="checkout__inner panel-block" style="text-align:center">
       <?php if (!$order): ?>
         <h1 class="section-title section-title--sm">Nie znaleziono zamówienia</h1>
-        <p class="section-lede">Sprawdź, czy link jest poprawny, albo zadzwoń: <a href="tel:729110496" style="color:var(--color-mustard)">729 110 496</a>.</p>
+        <p class="section-lede">Sprawdź, czy link jest poprawny, albo zadzwoń: <a href="tel:123456789" style="color:var(--color-mustard)">123 456 789</a>.</p>
       <?php else: ?>
         <h1 class="section-title section-title--sm">Dzięki! Zamówienie przyjęte</h1>
         <p class="section-lede">
@@ -35,7 +35,7 @@ $order       = $orderNumber !== '' ? OrderRepository::findByNumber($orderNumber)
           Płatność przy odbiorze — do zapłaty <strong><?= h(money_pln((int) $order['total_cents'])) ?></strong>.
         </p>
         <p class="checkout__status" style="margin-top:1.5rem">
-          W razie pytań zadzwoń: <a href="tel:729110496" style="color:var(--color-mustard)">729 110 496</a>.
+          W razie pytań zadzwoń: <a href="tel:123456789" style="color:var(--color-mustard)">123 456 789</a>.
         </p>
       <?php endif; ?>
       <a href="../index.php" class="btn btn--mustard" style="margin-top:1.5rem; display:inline-block">Wróć na stronę główną</a>

@@ -37,13 +37,13 @@ if (!empty($payload['website'])) {
 }
 
 if (!OrderRepository::ordersEnabled()) {
-    respond_error(503, 'Przepraszamy, w tej chwili nie przyjmujemy zamówień online. Zadzwoń: 729 110 496.');
+    respond_error(503, 'Przepraszamy, w tej chwili nie przyjmujemy zamówień online. Zadzwoń: 123 456 789.');
 }
 
 $ip     = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 $bucket = 'order:' . $ip;
 if (Throttle::tooMany($bucket, maxAttempts: 8, windowSeconds: 600)) {
-    respond_error(429, 'Zbyt wiele zamówień z tego adresu w krótkim czasie. Spróbuj później albo zadzwoń: 729 110 496.');
+    respond_error(429, 'Zbyt wiele zamówień z tego adresu w krótkim czasie. Spróbuj później albo zadzwoń: 123 456 789.');
 }
 Throttle::hit($bucket);
 
@@ -112,7 +112,7 @@ if ($paymentMethod === 'przelewy24') {
         respond_error(
             502,
             'Zamówienie zostało zapisane (nr ' . $order['orderNumber'] . '), ale nie udało się połączyć ' .
-            'z bramką płatności. Zadzwoń: 729 110 496, podając numer zamówienia.'
+            'z bramką płatności. Zadzwoń: 123 456 789, podając numer zamówienia.'
         );
     }
 
