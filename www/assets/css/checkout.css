@@ -56,3 +56,5 @@
 
 .checkout__submit { width: 100%; margin-top: 0.5rem; }
 .checkout__submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.radio-option__hint { display: block; font-size: 0.8rem; color: var(--color-cream-dim); }

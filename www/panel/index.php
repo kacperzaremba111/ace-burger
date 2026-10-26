@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 2) . '/src/bootstrap.php';
 
-Auth::requireLogin();
-$user = Auth::user();
+Auth::requireRole(['admin', 'pracownik']);
+$user    = Auth::user();
+$isAdmin = $user['role'] === 'admin';
+
+$zones        = ZoneRepository::all(onlyActive: false);
+$activeCounts = OrderRepository::activeCountByZone();
+$myZoneId     = Auth::zoneScope();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -18,26 +23,37 @@ $user = Auth::user();
 </head>
 <body>
   <div class="panel-shell">
-    <header class="panel-header">
-      <span class="panel-header__brand">ACE BURGER — Panel</span>
-      <span class="panel-header__user">
-        <?= h($user['full_name']) ?> (<?= h($user['role']) ?>)
-        <a href="logout.php">Wyloguj</a>
-      </span>
-    </header>
+    <?= PanelView::header($user, 'start') ?>
 
-    <nav class="panel-nav">
-      <a href="zamowienia.php">Zamówienia</a>
-      <?php if ($user['role'] === 'admin'): ?>
-        <a href="kategorie.php">Kategorie</a>
-        <a href="menu.php">Menu</a>
-        <a href="dodatki.php">Dodatki</a>
-      <?php endif; ?>
-    </nav>
+    <?php if ($isAdmin): ?>
+      <div class="panel-card">
+        <p>Zalogowano jako <strong><?= h($user['username']) ?></strong> — podgląd ogólny wszystkich stref.</p>
+      </div>
 
-    <div class="panel-card">
-      <p>Zalogowano jako <strong><?= h($user['username']) ?></strong>, rola: <strong><?= h($user['role']) ?></strong>.</p>
-    </div>
+      <div class="zone-grid">
+        <?php foreach ($zones as $zone): $zid = (int) $zone['id']; ?>
+          <a class="zone-tile" href="zamowienia.php?strefa=<?= $zid ?>">
+            <span class="zone-tile__name"><?= h($zone['name']) ?></span>
+            <span class="zone-tile__count"><?= $activeCounts[$zid] ?? 0 ?></span>
+            <span class="zone-tile__label">aktywnych zamówień</span>
+          </a>
+        <?php endforeach; ?>
+        <?php if (!empty($activeCounts[0])): ?>
+          <a class="zone-tile" href="zamowienia.php">
+            <span class="zone-tile__name">Bez strefy (starsze)</span>
+            <span class="zone-tile__count"><?= $activeCounts[0] ?></span>
+            <span class="zone-tile__label">aktywnych zamówień</span>
+          </a>
+        <?php endif; ?>
+      </div>
+    <?php else: ?>
+      <div class="panel-card">
+        <p>Zalogowano jako <strong><?= h($user['username']) ?></strong>.</p>
+        <p>Twoja strefa: <strong><?= h($user['zone_name']) ?></strong> —
+          aktywnych zamówień: <strong><?= $activeCounts[$myZoneId] ?? 0 ?></strong>.</p>
+        <p><a class="btn" href="zamowienia.php">Przejdź do zamówień</a></p>
+      </div>
+    <?php endif; ?>
   </div>
 </body>
 </html>

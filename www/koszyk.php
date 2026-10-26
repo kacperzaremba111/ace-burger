@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../src/bootstrap.php';
 
 $csrfField = Csrf::field();
+$zones     = ZoneRepository::all();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -77,6 +78,17 @@ $csrfField = Csrf::field();
             <label for="customer_email">E-mail (opcjonalnie)</label>
             <input type="email" id="customer_email" name="customer_email" autocomplete="email">
           </div>
+
+          <fieldset class="field-group" id="zoneFieldset">
+            <legend>Strefa lokalu, z której korzystasz</legend>
+            <?php foreach ($zones as $zone): ?>
+              <label class="radio-option">
+                <input type="radio" name="zone_id" value="<?= (int) $zone['id'] ?>" required>
+                <span><?= h($zone['name']) ?><?php if (!empty($zone['description'])): ?>
+                  <small class="radio-option__hint"><?= h($zone['description']) ?></small><?php endif; ?></span>
+              </label>
+            <?php endforeach; ?>
+          </fieldset>
 
           <fieldset class="field-group">
             <legend>Sposób odbioru</legend>

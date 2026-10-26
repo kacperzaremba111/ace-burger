@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 /**
- * Logowanie/sesje/role dla panelu (admin, kuchnia).
+ * Logowanie/sesje/role dla panelu.
+ *
+ * Role: "admin"     — wszystkie strefy, zamówienia, menu i pracownicy;
+ *       "pracownik" — wyłącznie zamówienia ze swojej strefy lokalu (zone_id).
  */
 final class Auth
 {
@@ -52,7 +55,7 @@ final class Auth
         session_destroy();
     }
 
-    /** Zalogowany użytkownik (id, username, role, full_name) albo null. */
+    /** Zalogowany użytkownik (id, username, role, full_name, zone_id, zone_name) albo null. */
     public static function user(): ?array
     {
         static $cached = false; // false = jeszcze nie sprawdzone; null = sprawdzone, brak usera
@@ -69,7 +72,10 @@ final class Auth
         }
 
         $stmt = Database::pdo()->prepare(
-            'SELECT id, username, role, full_name FROM admin_users WHERE id = ? AND is_active = 1'
+            'SELECT u.id, u.username, u.role, u.full_name, u.zone_id, z.name AS zone_name
+             FROM admin_users u
+             LEFT JOIN zones z ON z.id = u.zone_id
+             WHERE u.id = ? AND u.is_active = 1'
         );
         $stmt->execute([$id]);
         $user = $stmt->fetch();
@@ -91,7 +97,7 @@ final class Auth
         }
     }
 
-    /** @param string[] $roles np. ['admin'] albo ['admin', 'kuchnia'] */
+    /** @param string[] $roles np. ['admin'] albo ['admin', 'pracownik'] */
     public static function requireRole(array $roles): void
     {
         self::requireLogin();
@@ -102,5 +108,25 @@ final class Auth
             echo '403 — brak uprawnień do tej sekcji panelu.';
             exit;
         }
+        if ($user['role'] === 'pracownik' && $user['zone_id'] === null) {
+            http_response_code(403);
+            echo '403 — konto nie ma przypisanej strefy lokalu. Poproś admina o przypisanie.';
+            exit;
+        }
+    }
+
+    /**
+     * Strefa, do której ogranicza się widok zalogowanego użytkownika:
+     * null = bez ograniczeń (admin), int = id strefy pracownika.
+     * Każde zapytanie o zamówienia w panelu MUSI przejść przez tę wartość.
+     */
+    public static function zoneScope(): ?int
+    {
+        $user = self::user();
+        if ($user === null) {
+            throw new LogicException('zoneScope() wywołane bez zalogowanego użytkownika.');
+        }
+
+        return $user['role'] === 'admin' ? null : (int) $user['zone_id'];
     }
 }

@@ -51,9 +51,13 @@ $customerName  = trim((string) ($payload['customer_name'] ?? ''));
 $customerPhone = trim((string) ($payload['customer_phone'] ?? ''));
 $fulfillment   = (string) ($payload['fulfillment'] ?? '');
 $paymentMethod = (string) ($payload['payment_method'] ?? '');
+$zoneId        = (int) ($payload['zone_id'] ?? 0);
 
 if ($customerName === '' || $customerPhone === '') {
     respond_error(422, 'Podaj imię, nazwisko i telefon.');
+}
+if ($zoneId <= 0 || !ZoneRepository::isActive($zoneId)) {
+    respond_error(422, 'Wybierz strefę lokalu, z której korzystasz.');
 }
 if (!in_array($fulfillment, ['na_miejscu', 'na_wynos', 'dostawa'], true)) {
     respond_error(422, 'Nieprawidłowy sposób odbioru.');
@@ -70,6 +74,7 @@ $customer = [
     'customer_phone'        => mb_substr($customerPhone, 0, 24),
     'customer_email'        => (mb_substr(trim((string) ($payload['customer_email'] ?? '')), 0, 128)) ?: null,
     'fulfillment'           => $fulfillment,
+    'zone_id'               => $zoneId,
     'payment_method'        => $paymentMethod,
     'notes'                 => (mb_substr(trim((string) ($payload['notes'] ?? '')), 0, 2000)) ?: null,
     'delivery_street'       => (mb_substr(trim((string) ($payload['delivery_street'] ?? '')), 0, 128)) ?: null,

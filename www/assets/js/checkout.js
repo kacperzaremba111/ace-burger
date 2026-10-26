@@ -90,6 +90,15 @@
     if (items.length === 0) return;
 
     const formData = new FormData(form);
+
+    if (!formData.get('zone_id')) {
+      if (statusEl) {
+        statusEl.textContent = 'Wybierz strefę lokalu, z której korzystasz.';
+        statusEl.className = 'checkout__status checkout__status--error';
+      }
+      document.getElementById('zoneFieldset')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     const payload = {
       csrf_token: formData.get('csrf_token'),
       website: formData.get('website'), // honeypot — puste u prawdziwego klienta
@@ -97,6 +106,7 @@
       customer_phone: formData.get('customer_phone'),
       customer_email: formData.get('customer_email'),
       fulfillment: formData.get('fulfillment'),
+      zone_id: Number(formData.get('zone_id')),
       payment_method: formData.get('payment_method'),
       notes: formData.get('notes'),
       delivery_street: formData.get('delivery_street'),
@@ -120,7 +130,11 @@
       });
 
       if (!response.ok) {
-        throw new Error('Serwer odpowiedział błędem (' + response.status + ')');
+        // API zwraca {error: "..."} z komunikatem bezpiecznym do pokazania klientowi.
+        const body = await response.json().catch(() => null);
+        const error = new Error('Serwer odpowiedział błędem (' + response.status + ')');
+        error.userMessage = body && body.error;
+        throw error;
       }
 
       const result = await response.json();
@@ -133,7 +147,8 @@
       }
     } catch (err) {
       if (statusEl) {
-        statusEl.textContent = 'Nie udało się złożyć zamówienia. Spróbuj ponownie albo zadzwoń: 729 110 496.';
+        statusEl.textContent = err.userMessage
+          || 'Nie udało się złożyć zamówienia. Spróbuj ponownie albo zadzwoń: 729 110 496.';
         statusEl.className = 'checkout__status checkout__status--error';
       }
       if (submitBtn) submitBtn.disabled = false;

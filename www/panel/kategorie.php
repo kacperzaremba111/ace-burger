@@ -67,21 +67,7 @@ $csrfToken  = Csrf::token();
 </head>
 <body>
   <div class="panel-shell">
-    <header class="panel-header">
-      <span class="panel-header__brand">ACE BURGER — Panel</span>
-      <span class="panel-header__user">
-        <?= h($user['full_name']) ?> (<?= h($user['role']) ?>)
-        <a href="logout.php">Wyloguj</a>
-      </span>
-    </header>
-
-    <nav class="panel-nav">
-      <a href="index.php">Start</a>
-      <a href="zamowienia.php">Zamówienia</a>
-      <a href="kategorie.php" class="is-active">Kategorie</a>
-      <a href="menu.php">Menu</a>
-      <a href="dodatki.php">Dodatki</a>
-    </nav>
+    <?= PanelView::header($user, 'kategorie') ?>
 
     <?php if ($flash): ?>
       <p class="alert alert--<?= h($flash['type']) ?>"><?= h($flash['message']) ?></p>

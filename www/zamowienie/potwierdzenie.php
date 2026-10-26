@@ -31,6 +31,7 @@ $order       = $orderNumber !== '' ? OrderRepository::findByNumber($orderNumber)
         <h1 class="section-title section-title--sm">Dzięki! Zamówienie przyjęte</h1>
         <p class="section-lede">
           Numer zamówienia: <strong><?= h($order['order_number']) ?></strong><br>
+          <?php if (!empty($order['zone_name'])): ?>Strefa: <strong><?= h($order['zone_name']) ?></strong><br><?php endif; ?>
           Płatność przy odbiorze — do zapłaty <strong><?= h(money_pln((int) $order['total_cents'])) ?></strong>.
         </p>
         <p class="checkout__status" style="margin-top:1.5rem">

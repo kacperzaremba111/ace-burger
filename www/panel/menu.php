@@ -88,21 +88,7 @@ $tagLabel = ['none' => '—', 'hot' => 'OSTRY', 'bbq' => 'BBQ'];
 </head>
 <body>
   <div class="panel-shell">
-    <header class="panel-header">
-      <span class="panel-header__brand">ACE BURGER — Panel</span>
-      <span class="panel-header__user">
-        <?= h($user['full_name']) ?> (<?= h($user['role']) ?>)
-        <a href="logout.php">Wyloguj</a>
-      </span>
-    </header>
-
-    <nav class="panel-nav">
-      <a href="index.php">Start</a>
-      <a href="zamowienia.php">Zamówienia</a>
-      <a href="kategorie.php">Kategorie</a>
-      <a href="menu.php" class="is-active">Menu</a>
-      <a href="dodatki.php">Dodatki</a>
-    </nav>
+    <?= PanelView::header($user, 'menu') ?>
 
     <?php if ($flash): ?>
       <p class="alert alert--<?= h($flash['type']) ?>"><?= h($flash['message']) ?></p>

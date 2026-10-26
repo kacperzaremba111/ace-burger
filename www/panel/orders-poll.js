@@ -16,11 +16,15 @@
   if (!listEl) return;
 
   const view = listEl.dataset.view || 'aktywne';
+  // Filtr strefy (tylko admin). Dla pracownika serwer i tak wymusza jego strefę.
+  const zone = listEl.dataset.zone || '';
   const POLL_INTERVAL_MS = 20000;
 
   async function refresh() {
     try {
-      const response = await fetch(`api/zamowienia-lista.php?view=${encodeURIComponent(view)}`);
+      const params = new URLSearchParams({ view });
+      if (zone && zone !== '0') params.set('strefa', zone);
+      const response = await fetch(`api/zamowienia-lista.php?${params}`);
       if (!response.ok) return;
       listEl.innerHTML = await response.text();
     } catch {

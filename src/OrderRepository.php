@@ -30,7 +30,7 @@ final class OrderRepository
 
     /**
      * @param array{customer_name:string,customer_phone:string,customer_email:?string,
-     *              fulfillment:string,payment_method:string,notes:?string,
+     *              fulfillment:string,zone_id:int,payment_method:string,notes:?string,
      *              delivery_street:?string,delivery_city:?string,delivery_postal_code:?string,
      *              delivery_notes:?string,client_ip:?string} $customer
      * @param array<int, array{menuItemId:mixed,qty:mixed,notes?:mixed,addons?:array}> $cartItems
@@ -64,15 +64,16 @@ final class OrderRepository
 
             $stmt = $pdo->prepare(
                 'INSERT INTO orders (
-                    order_number, status, payment_method, fulfillment, customer_name, customer_phone,
+                    order_number, status, payment_method, fulfillment, zone_id, customer_name, customer_phone,
                     customer_email, delivery_street, delivery_city, delivery_postal_code, delivery_notes,
                     delivery_fee_cents, notes, subtotal_cents, packaging_fee_cents, total_cents, client_ip
-                 ) VALUES (?, "nowe", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                 ) VALUES (?, "nowe", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute([
                 $orderNumber,
                 $customer['payment_method'],
                 $customer['fulfillment'],
+                $customer['zone_id'],
                 $customer['customer_name'],
                 $customer['customer_phone'],
                 $customer['customer_email'] ?: null,
@@ -212,26 +213,63 @@ final class OrderRepository
 
     public static function findByNumber(string $orderNumber): ?array
     {
-        $stmt = Database::pdo()->prepare('SELECT * FROM orders WHERE order_number = ?');
+        $stmt = Database::pdo()->prepare(
+            'SELECT o.*, z.name AS zone_name FROM orders o LEFT JOIN zones z ON z.id = o.zone_id WHERE o.order_number = ?'
+        );
         $stmt->execute([$orderNumber]);
 
         return $stmt->fetch() ?: null;
     }
 
-    /** @return array<int,array<string,mixed>> zamówienia z filtrem statusu, najnowsze pierwsze */
-    public static function listForKitchen(array $statuses): array
+    /**
+     * Zamówienia z filtrem statusu, najnowsze pierwsze.
+     * @param int|null $zoneId null = wszystkie strefy (tylko admin), int = jedna strefa
+     * @return array<int,array<string,mixed>>
+     */
+    public static function listForKitchen(array $statuses, ?int $zoneId): array
     {
         if (empty($statuses)) {
             return [];
         }
 
         $placeholders = implode(',', array_fill(0, count($statuses), '?'));
+        $params = $statuses;
+        $zoneSql = '';
+        if ($zoneId !== null) {
+            $zoneSql = ' AND o.zone_id = ?';
+            $params[] = $zoneId;
+        }
+
         $stmt = Database::pdo()->prepare(
-            "SELECT * FROM orders WHERE status IN ($placeholders) ORDER BY created_at DESC"
+            "SELECT o.*, z.name AS zone_name FROM orders o
+             LEFT JOIN zones z ON z.id = o.zone_id
+             WHERE o.status IN ($placeholders){$zoneSql}
+             ORDER BY o.created_at DESC"
         );
-        $stmt->execute($statuses);
+        $stmt->execute($params);
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * Liczba aktywnych zamówień per strefa (klucz: zone_id, 0 = bez strefy) —
+     * do podglądu ogólnego admina.
+     * @return array<int,int>
+     */
+    public static function activeCountByZone(): array
+    {
+        $rows = Database::pdo()->query(
+            "SELECT COALESCE(zone_id, 0) AS zone_id, COUNT(*) AS c FROM orders
+             WHERE status IN ('nowe', 'oplacone', 'w_przygotowaniu', 'gotowe', 'w_dostawie')
+             GROUP BY COALESCE(zone_id, 0)"
+        )->fetchAll();
+
+        $counts = [];
+        foreach ($rows as $row) {
+            $counts[(int) $row['zone_id']] = (int) $row['c'];
+        }
+
+        return $counts;
     }
 
     /** @return array<int,array<string,mixed>> */
@@ -250,11 +288,24 @@ final class OrderRepository
         return $items;
     }
 
-    public static function updateStatus(int $orderId, string $status): void
+    /**
+     * @param int|null $zoneId strefa zalogowanego (Auth::zoneScope()) — pracownik
+     *        nie może zmienić statusu zamówienia z cudzej strefy, nawet podmieniając
+     *        order_id w formularzu.
+     */
+    public static function updateStatus(int $orderId, string $status, ?int $zoneId): void
     {
         $allowed = ['nowe', 'oplacone', 'w_przygotowaniu', 'gotowe', 'w_dostawie', 'wydane', 'anulowane'];
         if (!in_array($status, $allowed, true)) {
             throw new InvalidArgumentException('Nieprawidłowy status zamówienia.');
+        }
+
+        $stmt = Database::pdo()->prepare('SELECT zone_id FROM orders WHERE id = ?');
+        $stmt->execute([$orderId]);
+        $order = $stmt->fetch();
+
+        if (!$order || ($zoneId !== null && (int) $order['zone_id'] !== $zoneId)) {
+            throw new InvalidArgumentException('Nie znaleziono zamówienia w Twojej strefie.');
         }
 
         $stmt = Database::pdo()->prepare('UPDATE orders SET status = ? WHERE id = ?');
@@ -314,6 +365,7 @@ final class OrderRepository
         $customerName  = h($order['customer_name']);
         $customerPhone = h($order['customer_phone']);
         $totalLabel    = h(money_pln((int) $order['total_cents']));
+        $zoneLabel     = h($order['zone_name'] ?? 'Bez strefy');
 
         $deliveryBlock = '';
         if ($order['fulfillment'] === 'dostawa') {
@@ -380,6 +432,7 @@ final class OrderRepository
                 <span class="order-card__number">{$orderNumber}</span>
                 <span class="order-card__status-badge order-card__status-badge--{$statusClass}">{$statusLabel}</span>
               </div>
+              <p class="order-card__zone">📍 {$zoneLabel}</p>
               <p class="order-card__meta">{$createdAt} · {$fulfillment} · {$paymentLabel}</p>
               <p class="order-card__customer">{$customerName} · <a href="tel:{$customerPhone}">{$customerPhone}</a></p>
               {$deliveryBlock}
@@ -391,10 +444,10 @@ final class OrderRepository
             HTML;
     }
 
-    /** Renderuje wszystkie karty dla podanego zestawu statusów — jeden fragment HTML. */
-    public static function renderOrdersFragment(array $statuses, string $csrfToken): string
+    /** Renderuje wszystkie karty dla podanego zestawu statusów (i strefy) — jeden fragment HTML. */
+    public static function renderOrdersFragment(array $statuses, ?int $zoneId, string $csrfToken): string
     {
-        $orders = self::listForKitchen($statuses);
+        $orders = self::listForKitchen($statuses, $zoneId);
 
         if (empty($orders)) {
             return '<p class="cart-empty">Brak zamówień w tym widoku.</p>';
