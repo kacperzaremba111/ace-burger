@@ -195,6 +195,12 @@ if (typeof document !== 'undefined') {
 
         closeDialog(addonDialog);
         pendingItem = null;
+
+        // Od razu pokaż koszyk — klient widzi, co dodał, i może przejść do zamówienia.
+        if (cartDialog) {
+          renderCartDialog();
+          openDialog(cartDialog);
+        }
       });
     }
 
